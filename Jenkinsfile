@@ -17,7 +17,10 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo '📦 Installing Python dependencies...'
-                sh 'pip install -r requirements.txt'
+                sh '''
+                    apt-get update && apt-get install -y python3 python3-pip
+                    pip3 install -r requirements.txt
+                '''
             }
         }
 
@@ -38,7 +41,7 @@ client.close()
         stage('Produce Test Events') {
             steps {
                 echo '📨 Sending test events to Kafka...'
-                sh 'python producer/producer.py'
+                sh 'python3 producer/produ.py'
             }
         }
 
